@@ -14,8 +14,8 @@ func main() {
 	router := gin.Default()
 	router.GET("/healthz", func(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{
-			"answer": "ok",
-			"code":   http.StatusOK,
+			"success": true,
+			"status":  http.StatusOK,
 		})
 	})
 	router.POST("/register", handler.Register)
