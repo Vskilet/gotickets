@@ -75,10 +75,26 @@ func HandleGetUser(ctx *gin.Context) {
 		ctx.AbortWithStatus(http.StatusBadRequest)
 		return
 	}
-	usr, er := db.GetUserByName(payload.LastName)
-	log.Println(payload.LastName)
+	usr, err := db.GetUserByName(payload.LastName)
+	if err != nil {
+		ctx.AbortWithStatus(http.StatusBadRequest)
+		return
+	}
+	if usr.Password != payload.Password {
+		ctx.AbortWithStatus(http.StatusUnauthorized)
+		return
+	}
+	ctx.JSON(200, gin.H{"auth": true})
+}
+
+func HandleGetUser(ctx *gin.Context) {
+	name := ctx.Query("name")
+	usr, er := db.GetUserByName(name)
 	if er != nil {
-		ctx.AbortWithStatus(http.StatusNotFound)
+		ctx.JSON(http.StatusNotFound, gin.H{
+			"success": false,
+			"error":   ErrUserNotFound,
+		})
 		return
 	}
 	log.Printf("%v is here", usr.FirstName)

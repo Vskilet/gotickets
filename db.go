@@ -36,7 +36,7 @@ func (db *DB) GetUserByID(id string) (*User, error) {
 
 func (db *DB) GetUserByName(name string) (*User, error) {
 	for _, usr := range db.Users {
-		if usr.LastName == name {
+		if usr.LastName == name || usr.FirstName == name {
 			return &usr, nil
 		}
 	}
