@@ -68,7 +68,7 @@ func HandleRegister(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, usr)
 }
 
-func HandleGetUser(ctx *gin.Context) {
+func HandleLogin(ctx *gin.Context) {
 	var payload UserRegister
 	err := ctx.Bind(&payload)
 	if err != nil {

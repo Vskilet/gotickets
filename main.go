@@ -17,7 +17,7 @@ func main() {
 		})
 	})
 	router.POST("/register", HandleRegister)
-	router.POST("/user", HandleGetUser)
-	//router.POST("/login", HandleLogin)
+	router.POST("/login", HandleLogin)
+	router.GET("/users", HandleGetUser)
 	router.Run(":8888") // default, listen and serve on 0.0.0.0:8080 (for windows "localhost:8080")
 }
