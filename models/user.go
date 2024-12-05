@@ -1,14 +1,11 @@
-package main
+package models
 
 import (
 	"crypto/sha256"
 	"encoding/json"
 	"fmt"
-	"log"
-	"net/http"
 	"time"
 
-	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
 )
 
@@ -54,49 +51,4 @@ func (pwd *Password) UnmarshalJSON(b []byte) error {
 	h.Write([]byte(aux))
 	*pwd = Password(fmt.Sprintf("%x", h.Sum(nil)))
 	return nil
-}
-
-func HandleRegister(ctx *gin.Context) {
-	var payload UserRegister
-	err := ctx.Bind(&payload)
-	if err != nil {
-		ctx.AbortWithStatus(http.StatusBadRequest)
-		return
-	}
-	usr := NewUser(payload.FirstName, payload.LastName, payload.Email, payload.Password)
-	db.SetUser(usr)
-	ctx.JSON(http.StatusOK, usr)
-}
-
-func HandleLogin(ctx *gin.Context) {
-	var payload UserRegister
-	err := ctx.Bind(&payload)
-	if err != nil {
-		ctx.AbortWithStatus(http.StatusBadRequest)
-		return
-	}
-	usr, err := db.GetUserByName(payload.LastName)
-	if err != nil {
-		ctx.AbortWithStatus(http.StatusBadRequest)
-		return
-	}
-	if usr.Password != payload.Password {
-		ctx.AbortWithStatus(http.StatusUnauthorized)
-		return
-	}
-	ctx.JSON(200, gin.H{"auth": true})
-}
-
-func HandleGetUser(ctx *gin.Context) {
-	name := ctx.Query("name")
-	usr, er := db.GetUserByName(name)
-	if er != nil {
-		ctx.JSON(http.StatusNotFound, gin.H{
-			"success": false,
-			"error":   ErrUserNotFound,
-		})
-		return
-	}
-	log.Printf("%v is here", usr.FirstName)
-	ctx.JSON(http.StatusOK, usr)
 }

@@ -4,11 +4,13 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+
+	"gotickets/db"
+	"gotickets/handlers"
 )
 
-var db *DB = NewDB()
-
 func main() {
+	handler := handlers.NewHandler(db.NewDB())
 	router := gin.Default()
 	router.GET("/healthz", func(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{
@@ -16,8 +18,8 @@ func main() {
 			"code":   http.StatusOK,
 		})
 	})
-	router.POST("/register", HandleRegister)
-	router.POST("/login", HandleLogin)
-	router.GET("/users", HandleGetUser)
+	router.POST("/register", handler.Register)
+	router.POST("/login", handler.Login)
+	router.GET("/users", handler.GetUser)
 	router.Run(":8888") // default, listen and serve on 0.0.0.0:8080 (for windows "localhost:8080")
 }
