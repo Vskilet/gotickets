@@ -21,6 +21,8 @@ func NewHandler(datalink *db.DB) *Handler {
 }
 
 func (handler *Handler) InitRoutes(router *gin.Engine) {
+	authWithJWT := handler.VerifyJWTToken("secret")
+
 	router.GET("/healthz", func(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{
 			"success": true,
@@ -29,7 +31,7 @@ func (handler *Handler) InitRoutes(router *gin.Engine) {
 	})
 	router.POST("/register", BasicAuth, handler.Register)
 	router.POST("/login", handler.Login)
-	router.GET("/users", handler.GetUser)
+	router.GET("/users", authWithJWT, handler.GetUser)
 }
 
 func (h *Handler) Register(ctx *gin.Context) {
@@ -60,7 +62,15 @@ func (h *Handler) Login(ctx *gin.Context) {
 		ctx.AbortWithStatus(http.StatusUnauthorized)
 		return
 	}
-	ctx.JSON(200, gin.H{"auth": true})
+	jwt, err := h.newJWTToken(usr.UUID, "secret")
+	if err != nil {
+		ctx.AbortWithStatus(http.StatusUnauthorized)
+		return
+	}
+	ctx.JSON(200, gin.H{
+		"auth": true,
+		"jwt":  jwt,
+	})
 }
 
 func (h *Handler) GetUser(ctx *gin.Context) {
