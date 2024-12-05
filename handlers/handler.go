@@ -20,6 +20,18 @@ func NewHandler(datalink *db.DB) *Handler {
 	}
 }
 
+func (handler *Handler) InitRoutes(router *gin.Engine) {
+	router.GET("/healthz", func(c *gin.Context) {
+		c.JSON(http.StatusOK, gin.H{
+			"success": true,
+			"status":  http.StatusOK,
+		})
+	})
+	router.POST("/register", BasicAuth, handler.Register)
+	router.POST("/login", handler.Login)
+	router.GET("/users", handler.GetUser)
+}
+
 func (h *Handler) Register(ctx *gin.Context) {
 	var payload models.UserRegister
 	err := ctx.Bind(&payload)
