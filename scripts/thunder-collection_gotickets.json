@@ -1,0 +1,124 @@
+{
+    "clientName": "Thunder Client",
+    "collectionName": "gotickets",
+    "collectionId": "8dcd8f9b-ecbe-4cb0-829d-7111f131e7a3",
+    "dateExported": "2024-12-06T15:53:11.871Z",
+    "version": "1.2",
+    "folders": [],
+    "requests": [
+        {
+            "_id": "b0a5d1bd-f698-4d46-a432-3e7ef673c17c",
+            "colId": "8dcd8f9b-ecbe-4cb0-829d-7111f131e7a3",
+            "containerId": "",
+            "name": "http://localhost:8888/user",
+            "url": "http://localhost:8888/users?name=SENE",
+            "method": "GET",
+            "sortNum": 10000,
+            "created": "2024-12-06T15:52:11.228Z",
+            "modified": "2024-12-06T15:52:11.228Z",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "params": [
+                {
+                    "name": "name",
+                    "value": "SENE",
+                    "isPath": false
+                }
+            ],
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MzM0OTM1NzEsImlzcyI6IjgyYzNkMjc4LWI1MzYtNDc3Yi05ZjljLTdiZWRlYzZhNWNjOCIsIm5iZiI6MTczMzQ5MTc3MX0.-Y44hzTeZqNxq1iMYUwQS0Rl0wqrHJMQh5nwaN9rtUI"
+            }
+        },
+        {
+            "_id": "64ec3aa8-d51f-4a26-b82c-faefe1fd44f1",
+            "colId": "8dcd8f9b-ecbe-4cb0-829d-7111f131e7a3",
+            "containerId": "",
+            "name": "http://localhost:8880/healthz",
+            "url": "http://localhost:8880/healthz",
+            "method": "GET",
+            "sortNum": 20000,
+            "created": "2024-12-06T15:52:28.351Z",
+            "modified": "2024-12-06T15:52:28.351Z",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ]
+        },
+        {
+            "_id": "7301a83e-e5f1-4d02-bfd7-416b077a3fd6",
+            "colId": "8dcd8f9b-ecbe-4cb0-829d-7111f131e7a3",
+            "containerId": "",
+            "name": "http://localhost:8888/register",
+            "url": "http://localhost:8888/register",
+            "method": "POST",
+            "sortNum": 30000,
+            "created": "2024-12-06T15:52:38.323Z",
+            "modified": "2024-12-06T15:52:38.323Z",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"firstname\": \"Yolo\",\n  \"lastname\": \"SENE\",\n  \"mail\": \"constance@sene.ovh\",\n  \"pass\": \"nopass\"\n}",
+                "form": []
+            },
+            "auth": {
+                "type": "basic",
+                "basic": {
+                    "username": "admin",
+                    "password": "admin"
+                }
+            }
+        },
+        {
+            "_id": "e14b02d2-6ac5-4913-ad5e-cdedaf5f8554",
+            "colId": "8dcd8f9b-ecbe-4cb0-829d-7111f131e7a3",
+            "containerId": "",
+            "name": "http://localhost:8888/healthz",
+            "url": "http://localhost:8888/healthz",
+            "method": "GET",
+            "sortNum": 40000,
+            "created": "2024-12-06T15:52:44.359Z",
+            "modified": "2024-12-06T15:52:44.359Z",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ]
+        },
+        {
+            "_id": "9fa4c086-6338-455f-8006-580adf4c5267",
+            "colId": "8dcd8f9b-ecbe-4cb0-829d-7111f131e7a3",
+            "containerId": "",
+            "name": "http://localhost:8888/login",
+            "url": "http://localhost:8888/login",
+            "method": "POST",
+            "sortNum": 50000,
+            "created": "2024-12-06T15:52:48.747Z",
+            "modified": "2024-12-06T15:52:48.747Z",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"lastname\": \"SENE\",\n  \"pass\": \"nopass\"\n}",
+                "form": []
+            }
+        }
+    ],
+    "ref": "syqxpYmopELQPOSEkVcY7sxFIb0K1HtUCnWmaSanq1F45CUab6Z0hM3TMBWRMztGTbULV_T73_S26YGDjlyD0g"
+}
