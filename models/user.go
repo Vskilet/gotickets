@@ -11,12 +11,29 @@ import (
 
 type Password string
 
+// This is a reimplementation of a JSON parsing for a Password
+func (pwd *Password) UnmarshalJSON(b []byte) error {
+	aux := ""
+	err := json.Unmarshal(b, &aux)
+	if err != nil {
+		return err
+	}
+	h := sha256.New()
+	h.Write([]byte(aux))
+	*pwd = Password(fmt.Sprintf("%x", h.Sum(nil)))
+	return nil
+}
+
+func (pwd *Password) String() string {
+	return "********"
+}
+
 type User struct {
 	UUID      string    `json:"uuid"`
 	FirstName string    `json:"firstname"`
 	LastName  string    `json:"lastname"`
 	Email     string    `json:"mail"`
-	Password  Password  `json:"-"`
+	Password  Password  `json:"pass"`
 	CreatedAt time.Time `json:"-"`
 	UpdatedAt time.Time `json:"-"`
 }
@@ -38,17 +55,4 @@ func NewUser(firstname, lastname, mail string, pass Password) *User {
 		CreatedAt: time.Now(),
 		UpdatedAt: time.Now(),
 	}
-}
-
-// This is a reimplementation of a JSON parsing for a Password
-func (pwd *Password) UnmarshalJSON(b []byte) error {
-	aux := ""
-	err := json.Unmarshal(b, &aux)
-	if err != nil {
-		return err
-	}
-	h := sha256.New()
-	h.Write([]byte(aux))
-	*pwd = Password(fmt.Sprintf("%x", h.Sum(nil)))
-	return nil
 }
