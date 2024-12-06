@@ -1,0 +1,5 @@
+Env: "dev"
+DBSQLite:
+  Filename: "gotickets.db"
+PortSrvUsers: 8888
+PortSrvConcerts: 8880
